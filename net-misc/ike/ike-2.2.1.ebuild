@@ -63,4 +63,7 @@ src_configure() {
 
 src_install() {
 	cmake-utils_src_install
+	
+	# install the init.d script
+	newinitd "${FILESDIR}/iked-${PV}.rc" iked
 }

@@ -1,0 +1,34 @@
+#!/sbin/runscript
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Id$
+
+: ${IKED_CONFDIR:=/etc}
+: ${IKED_CONFIG:=${IKED_CONFDIR}/iked.conf}
+
+extra_commands="checkconfig"
+
+depend() {
+        use net
+}
+
+start() {
+	checkconfig
+	ebegin "Starting iked"
+	start-stop-daemon --start --quiet --exec /usr/sbin/iked
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping iked"
+	start-stop-daemon --stop --quiet --exec /usr/sbin/iked
+	eend $?
+}
+
+checkconfig() {
+	if [ ! -e "${IKED_CONFIG}" ] ; then
+		eerror "You need an ${IKED_CONFIG} file to run iked"
+		eerror "There is a sample file in ${IKED_CONFDIR}/ike.conf.sample"
+		return 1
+	fi
+}
