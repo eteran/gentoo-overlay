@@ -1,0 +1,50 @@
+diff -rupN ike/source/iked/CMakeLists.txt ike.new/source/iked/CMakeLists.txt
+--- ike/source/iked/CMakeLists.txt	2012-11-28 00:53:09.000000000 -0500
++++ ike.new/source/iked/CMakeLists.txt	2016-03-02 10:01:23.872063362 -0500
+@@ -111,18 +111,18 @@ add_custom_target( ConfParser echo "Crea
+ add_custom_command(
+ 	SOURCE conf.token.ll
+ 	COMMAND ${PATH_BIN_FLEX}
+-	ARGS -d -oconf.token.cpp conf.token.ll
++	ARGS -d -o ${CMAKE_CURRENT_BINARY_DIR}/conf.token.cpp ${CMAKE_CURRENT_SOURCE_DIR}/conf.token.ll
+ 	TARGET ConfParser
+-	OUTPUTS conf.token.cpp )
++	OUTPUTS ${CMAKE_CURRENT_BINARY_DIR}/conf.token.cpp )
+ 
+ # Custom command for bison
+ 
+ add_custom_command(
+ 	SOURCE conf.parse.yy
+ 	COMMAND ${PATH_BIN_BISON}
+-	ARGS -oconf.parse.cpp conf.parse.yy
++	ARGS -o ${CMAKE_CURRENT_BINARY_DIR}/conf.parse.cpp ${CMAKE_CURRENT_SOURCE_DIR}/conf.parse.yy
+ 	TARGET ConfParser
+-	OUTPUTS conf.parse.cpp conf.parse.hpp location.hh position.hh stack.hh )
++	OUTPUTS ${CMAKE_CURRENT_BINARY_DIR}/conf.parse.cpp conf.parse.hpp location.hh position.hh stack.hh )
+ 
+ # install support
+ 
+diff -rupN ike/source/qikea/CMakeLists.txt ike.new/source/qikea/CMakeLists.txt
+--- ike/source/qikea/CMakeLists.txt	2012-11-28 00:53:09.000000000 -0500
++++ ike.new/source/qikea/CMakeLists.txt	2016-03-02 09:57:04.431055940 -0500
+@@ -7,6 +7,8 @@
+ #        : Copyright 2007, Shrew Soft Inc
+ #
+ 
++set(CMAKE_INCLUDE_CURRENT_DIR ON)
++
+ include_directories(
+ 	${IKE_SOURCE_DIR}/source/
+ 	${IKE_SOURCE_DIR}/source/ikec
+diff -rupN ike/source/qikec/CMakeLists.txt ike.new/source/qikec/CMakeLists.txt
+--- ike/source/qikec/CMakeLists.txt	2012-11-28 00:53:09.000000000 -0500
++++ ike.new/source/qikec/CMakeLists.txt	2016-03-02 09:58:10.463057829 -0500
+@@ -7,6 +7,8 @@
+ #        : Copyright 2007, Shrew Soft Inc
+ #
+ 
++set(CMAKE_INCLUDE_CURRENT_DIR ON)
++
+ include_directories(
+ 	${IKE_SOURCE_DIR}/source/
+ 	${IKE_SOURCE_DIR}/source/ikec

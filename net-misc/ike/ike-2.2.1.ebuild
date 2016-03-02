@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils cmake-utils
+inherit eutils cmake-utils multilib
 
 DESCRIPTION="The Shrew Soft VPN Client for Linux and BSD is an IPsec Client for FreeBSD, NetBSD and many Linux based operating systems. This version is distributed under an OSI approved open source license and is hosted in a public subversion repository. It supports most of the features available in the Windows VPN Client version with the exception of those which are not cross platform compatible."
 HOMEPAGE="https://www.shrew.net/"
@@ -16,8 +16,8 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE="qt4 nat ldap"
 
-RDEPEND=""
-DEPEND=">=dev-libs/libedit-20130712.3.1"
+RDEPEND=">=dev-libs/libedit-20130712.3.1 >=dev-libs/openssl-1.0.2f"
+DEPEND=">=dev-libs/libedit-20130712.3.1 >=dev-libs/openssl-1.0.2f >=sys-devel/flex-2.5.39-r1 >=sys-devel/bison-3.0.4-r1"
 
 src_unpack() {
 	unpack ike-${PV}-release.tbz2
@@ -26,6 +26,9 @@ src_unpack() {
 
 
 src_prepare() {
+
+	epatch "${FILESDIR}/ike-cmake-${PV}.patch"
+
 	epatch_user
 }
 
@@ -50,6 +53,10 @@ src_configure() {
 			-DLDAP=ON
 		)
 	fi
+	
+	mycmakeargs+=(
+		-DLIBDIR=$(get_libdir)
+	)
 	
 	cmake-utils_src_configure
 }
