@@ -27,7 +27,7 @@ IUSE=""
 
 S=${WORKDIR}
 
-RDEPEND=">=virtual/jre-1.5"
+RDEPEND=">=virtual/jre-1.7 x11-misc/xdg-utils"
 DEPEND=""
 
 QA_TEXTRELS="
