@@ -6,8 +6,6 @@ EAPI=5
 
 inherit eutils versionator unpacker
 
-
-
 DESCRIPTION="BinDiff is a comparison tool for binary files, that assists vulnerability researchers and engineers to quickly find differences and similarities in disassembled code."
 HOMEPAGE="http://www.zynamics.com/bindiff.html"
 
@@ -31,6 +29,13 @@ S=${WORKDIR}
 
 RDEPEND=">=virtual/jre-1.5"
 DEPEND=""
+
+QA_TEXTRELS="
+	opt/zynamics/BinDiff/plugins/zynamics_binexport_8.plx
+	opt/zynamics/BinDiff/plugins/zynamics_binexport_8.plx64
+	opt/zynamics/BinDiff/plugins/zynamics_bindiff_4_2.plx
+	opt/zynamics/BinDiff/plugins/zynamics_bindiff_4_2.plx64
+"
 
 src_prepare() {
 	epatch "${FILESDIR}/bindiff-$(get_version_component_range 1-2)-readlink-00.patch"
@@ -58,7 +63,7 @@ src_install() {
         ${D}/etc/opt/zynamics/BinDiff/bindiff.xml	
 }
 
-src_postinstall() {
+pkg_postinst() {
     einfo "To be able to use BinDiff, you also need to set the path to your"
     einfo "IDA Pro installation directory in the following configuration"
     einfo "files:"
