@@ -51,12 +51,14 @@ src_install() {
 	doins -r opt/zynamics
 
 	chmod +x "${D}/opt/zynamics/BinDiff/bin/bindiff.sh"
+	chmod +x "${D}/opt/zynamics/BinDiff/bin/differ"
 	
 	insinto /usr
 	doins -r usr
 	
 	dodir /opt/bin
 	dosym /opt/zynamics/BinDiff/bin/bindiff.sh /opt/bin/bindiff
+	dosym /opt/zynamics/BinDiff/bin/differ /opt/bin/differ
 	
     # Setup install location in config file.
     sed -i 's/INSTALLDIR/\/opt\/zynamics\/BinDiff\//' \
