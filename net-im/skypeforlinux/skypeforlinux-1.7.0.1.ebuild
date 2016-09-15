@@ -8,7 +8,7 @@ inherit rpm
 
 DESCRIPTION="Skype for Linux Alpha" 
 HOMEPAGE="https://community.skype.com/t5/Linux/Skype-for-Linux-Alpha-and-calling-on-Chrome-amp-Chromebooks/td-p/4434299" 
-SRC_URI="https://go.skype.com/skypeforlinux-64-alpha.rpm -> skypeforlinux-64-alpha.rpm" 
+SRC_URI="https://repo.skype.com/rpm/stable/skypeforlinux_${PV}-1.x86_64.rpm" 
 LICENSE="BSD MIT RSA W3C regexp-UofT no-source-code" 
 SLOT="0" 
 KEYWORDS="~amd64" 
@@ -22,7 +22,7 @@ RDEPEND="gnome-base/gnome-keyring
 S="${WORKDIR}" 
 
 src_unpack() { 
-        rpm_unpack skypeforlinux-64-alpha.rpm 
+        rpm_unpack skypeforlinux_${PV}-1.x86_64.rpm
 } 
 
 src_install() { 
