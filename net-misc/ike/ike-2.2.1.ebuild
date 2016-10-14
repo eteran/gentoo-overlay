@@ -16,8 +16,19 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE="qt4 nat ldap"
 
-RDEPEND=">=dev-libs/libedit-20130712.3.1 >=dev-libs/openssl-1.0.2f >=net-firewall/ipsec-tools-0.8.2"
-DEPEND="${RDEPEND} >=sys-devel/flex-2.5.39-r1 >=sys-devel/bison-3.0.4-r1"
+RDEPEND="
+	>=dev-libs/libedit-20130712.3.1 
+	>=dev-libs/openssl-1.0.2f 
+	>=net-firewall/ipsec-tools-0.8.2
+	>=dev-libs/libedit-20130712.3.1
+	qt4? ( >=dev-qt/qtgui-4.0.0 >=dev-qt/qtcore-4.0.0 )
+	"
+	
+DEPEND="
+	${RDEPEND}
+	>=sys-devel/flex-2.5.39-r1
+	>=sys-devel/bison-3.0.4-r1
+	"
 
 src_unpack() {
 	unpack ike-${PV}-release.tbz2
@@ -26,9 +37,7 @@ src_unpack() {
 
 
 src_prepare() {
-
 	epatch "${FILESDIR}/ike-cmake-${PV}.patch"
-
 	epatch_user
 }
 
