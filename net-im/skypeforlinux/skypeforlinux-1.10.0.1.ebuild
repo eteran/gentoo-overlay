@@ -17,7 +17,8 @@ RESTRICT="mirror bindist strip"
 
 #DEPEND="app-arch/rpm2targz" 
 RDEPEND="gnome-base/gnome-keyring 
-        gnome-base/libgnome-keyring" 
+        gnome-base/libgnome-keyring
+        >=dev-util/electron-0.37.8" 
 
 S="${WORKDIR}" 
 
