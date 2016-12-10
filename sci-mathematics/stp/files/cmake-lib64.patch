@@ -1,0 +1,24 @@
+diff -rupN stp-9999.old/src/libstp/CMakeLists.txt stp-9999.new/src/libstp/CMakeLists.txt
+--- stp-9999.old/src/libstp/CMakeLists.txt	2016-12-06 16:27:38.020278674 -0500
++++ stp-9999.new/src/libstp/CMakeLists.txt	2016-12-06 17:32:14.657028240 -0500
+@@ -56,8 +56,8 @@ if (BUILD_SHARED_LIBS AND ALSO_BUILD_STA
+ 
+   install(TARGETS libstp_static
+               EXPORT ${STP_EXPORT_NAME}
+-              LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
+-              ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
++              LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64"
++              ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64"
+          )
+ endif()
+ 
+@@ -100,7 +100,7 @@ endforeach()
+ 
+ install(TARGETS libstp
+             EXPORT ${STP_EXPORT_NAME}
+-            LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
+-            ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
++            LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64"
++            ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib64"
+             PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include/stp"
+        )
