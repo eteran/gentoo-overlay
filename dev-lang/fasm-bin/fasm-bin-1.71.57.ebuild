@@ -7,7 +7,7 @@ EAPI="5"
 inherit eutils multilib
 
 DESCRIPTION="Flat Assembler"
-SRC_URI="http://www.flatassembler.net/fasm-${PV}.tgz -> fasm-${PV}.tgz"
+SRC_URI="https://flatassembler.net/fasm-${PV}.tgz -> fasm-${PV}.tgz"
 HOMEPAGE="http://www.flatassembler.net/"
 RESTRICT="strip mirror"
 
