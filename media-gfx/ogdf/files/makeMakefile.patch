@@ -1,0 +1,7 @@
+diff -ruPN ogdf-2012.07.old/makeMakefile.sh ogdf-2012.07.new/makeMakefile.sh
+--- ogdf-2012.07.old/makeMakefile.sh	2012-07-18 03:17:42.000000000 -0400
++++ ogdf-2012.07.new/makeMakefile.sh	2016-12-09 20:14:28.152762995 -0500
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-python makeMakefile.py
++python2 makeMakefile.py
