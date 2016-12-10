@@ -26,8 +26,7 @@ src_unpack() {
 }
 
 src_install() {
-	insinto /opt/bin
-	doins "${S}/fasm/fasm"
-	chmod 0755 "${D}/opt/bin/fasm"
+	into /opt
+	dobin "${S}/fasm/fasm"
 }
 
