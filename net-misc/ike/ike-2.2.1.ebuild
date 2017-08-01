@@ -19,7 +19,7 @@ IUSE="qt4 nat ldap"
 RDEPEND="
 	>=dev-libs/libedit-20130712.3.1 
 	>=dev-libs/openssl-1.0.2f 
-	>=net-firewall/ipsec-tools-0.8.2
+	>=net-vpn/ipsec-tools-0.8.2
 	>=dev-libs/libedit-20130712.3.1
 	qt4? ( >=dev-qt/qtgui-4.0.0 >=dev-qt/qtcore-4.0.0 )
 	"
