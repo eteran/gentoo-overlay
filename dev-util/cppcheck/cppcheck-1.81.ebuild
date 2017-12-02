@@ -35,7 +35,10 @@ src_prepare() {
 	cmake-utils_src_prepare
 }
 
-src_configure() {	
+src_configure() {
+
+	# sed -e "s:\${CMAKE_INSTALL_PREFIX}/share/\${PROJECT_NAME}:\${CMAKE_INSTALL_PREFIX}/share/${PN}-${PV}/cfg:" \
+	#	-i ${S}/cmake/compilerDefinitions.cmake || die
 
 	local mycmakeargs
 	
