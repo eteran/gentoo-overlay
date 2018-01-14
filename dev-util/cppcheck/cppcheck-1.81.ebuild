@@ -60,10 +60,6 @@ src_configure() {
 		)
 	fi
 	
-	mycmakeargs+=(
-		-DCMAKE_BUILD_TYPE=Release
-	)
-
 	cmake-utils_src_configure
 }
 

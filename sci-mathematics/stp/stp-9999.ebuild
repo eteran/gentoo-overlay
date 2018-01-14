@@ -46,14 +46,7 @@ src_prepare() {
 	default
 }
 
-src_configure() {
-	local mycmakeargs
-	
-	mycmakeargs+=(
-		-DTUNE_NATIVE=ON
-		-DCMAKE_BUILD_TYPE=Release
-	)	
-	
+src_configure() {	
 	cmake-utils_src_configure
 }
 
