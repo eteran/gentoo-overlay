@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<longdescription>nedit-ng is a Qt port of the Nirvana Editor (NEdit) version 5.6. It is intended to be a drop in replacement for nedit in every practical way.</longdescription>
+	<maintainer type="project">
+		<email>evan.teran@gmail.com</email>
+		<name>Evan Teran</name>
+	</maintainer>
+	<upstream>
+		<maintainer>
+			<email>evan.teran@gmail.com</email>
+			<name>Evan Teran</name>
+		</maintainer>
+	</upstream>
+	<use>
+		<flag name="symlink">Make nedit-ng accessible via old nedit names with symlinks</flag>
+	</use>
+</pkgmetadata>
