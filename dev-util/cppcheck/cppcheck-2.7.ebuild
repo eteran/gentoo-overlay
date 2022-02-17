@@ -1,9 +1,11 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-PYTHON_COMPAT=( python{3_7,3_8,3_9} )
-inherit distutils-r1 toolchain-funcs cmake
+EAPI=8
+
+PYTHON_COMPAT=( python3_{8..10} )
+DISTUTILS_USE_SETUPTOOLS=manual
+inherit distutils-r1 cmake
 
 DESCRIPTION="Static analyzer of C/C++ code"
 HOMEPAGE="https://github.com/danmar/cppcheck"
@@ -12,12 +14,15 @@ SRC_URI="https://github.com/danmar/cppcheck/archive/refs/tags/${PV}.tar.gz -> ${
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="amd64 ~arm arm64 ~hppa ~ppc64 sparc x86"
-IUSE="htmlreport pcre qt5 +z3"
-
-DISTUTILS_USE_SETUPTOOLS=no
+IUSE="htmlreport pcre qt5 test +z3"
+RESTRICT="!test? ( test )"
 
 RDEPEND="
-	htmlreport? ( dev-python/pygments[${PYTHON_USEDEP}] )
+	dev-libs/tinyxml2:=
+	htmlreport? (
+		dev-python/pygments[${PYTHON_USEDEP}]
+		dev-python/setuptools[${PYTHON_USEDEP}]
+	)
 	pcre? ( dev-libs/libpcre )
 	qt5? (
 		dev-qt/qtcore:5
@@ -25,30 +30,34 @@ RDEPEND="
 		dev-qt/qthelp
 		dev-qt/qtprintsupport:5
 	)
+	z3? ( sci-mathematics/z3 )
 "
-DEPEND="${RDEPEND}
+DEPEND="${RDEPEND}"
+BDEPEND="
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
 	virtual/pkgconfig
-	z3? ( sci-mathematics/z3 )
+	qt5? ( dev-qt/linguist-tools:5 )
+	test? (
+		htmlreport? ( dev-python/unittest-or-fail[${PYTHON_USEDEP}] )
+	)
 "
-PATCHES=(
-	"${FILESDIR}"/${PN}-2.4.1-limits.patch
-)
 
 src_prepare() {
 	cmake_src_prepare
 }
 
 src_configure() {
-
 	local mycmakeargs=(
 		-DHAVE_RULES="$(usex pcre)"
 		-DBUILD_GUI="$(usex qt5)"
 		-DUSE_Z3="$(usex z3)"
-		-DFILESDIR="${EROOT}/usr/share/${PN}/"
+		-DFILESDIR="${EPREFIX}/usr/share/${PN}/"
 		-DENABLE_OSS_FUZZ=OFF
+		-DUSE_BUNDLED_TINYXML2=OFF
+		-DBUILD_TESTS="$(usex test)"
 	)
+
 	cmake_src_configure
 }
 
@@ -62,24 +71,36 @@ src_compile() {
 	fi
 }
 
+src_test() {
+	cmake_src_test
+
+	# TODO: Needs some hackery to find the right binary
+	#if use htmlreport ; then
+	#	distutils-r1_src_test
+	#fi
+}
+
+python_test() {
+	pushd htmlreport || die
+	eunittest
+	popd || die
+}
+
 src_install() {
-	# it's not autotools-based, so "${ED}" here, not "${D}", bug 531760
-	emake install DESTDIR="${ED}" \
-		FILESDIR="${EROOT}/usr/share/${PN}/"
+	cmake_src_install
 
 	insinto "/usr/share/${PN}/cfg"
 	doins cfg/*.cfg
+
 	if use qt5 ; then
 		dobin "${WORKDIR}/${P}_build/bin/${PN}-gui"
 		dodoc gui/{projectfile.txt,gui.${PN}}
 	fi
+
 	if use htmlreport ; then
 		pushd htmlreport || die
 		distutils-r1_src_install
 		popd || die
-		find "${D}" -name "*.egg-info" -delete
-	else
-		rm "${ED}/usr/bin/cppcheck-htmlreport" || die
 	fi
 
 	dodoc -r tools/triage
