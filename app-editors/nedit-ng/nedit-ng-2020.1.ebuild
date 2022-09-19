@@ -1,10 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-CMAKE_MIN_VERSION=3.0
+EAPI=7
 
-inherit eutils cmake-utils multilib
+inherit eutils cmake multilib
 
 DESCRIPTION="a Qt5 port of the NEdit using modern c++14"
 HOMEPAGE="https://github.com/eteran/nedit-ng"
@@ -21,21 +20,25 @@ RDEPEND="
 	>=dev-qt/qtnetwork-5.4.0
 	>=dev-qt/qtxml-5.4.0
 	"
-	
+
 DEPEND="
 	>=dev-libs/boost-1.35
 	>=sys-devel/bison-3.0
 	"
 
+BDEPEND="
+	>=dev-util/cmake-3.0
+	"
+
 src_prepare() {
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
-src_configure() {	
-	cmake-utils_src_configure
+src_configure() {
+	cmake_src_configure
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 	use !symlink || dosym nedit-ng /usr/bin/nedit
 }

@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit eutils cmake-utils multilib git-r3
+inherit eutils cmake multilib git-r3
 
 DESCRIPTION="Simple Theorem Prover."
 HOMEPAGE="http://stp.github.io/"
@@ -20,7 +20,7 @@ RDEPEND="
 	sys-devel/bison
 	sys-devel/flex
 	>=sys-libs/zlib-1.2.8
-	
+
 "
 
 DEPEND="
@@ -33,7 +33,7 @@ src_unpack() {
 	if [[ ${PV} == "9999" ]] ; then
 		git-r3_src_unpack
 	fi
-	
+
 	default
 }
 
@@ -42,14 +42,14 @@ src_prepare() {
 	if [ $(get_libdir) == "lib64" ]; then
 		epatch "${FILESDIR}/cmake-lib64.patch"
 	fi
-	
+
 	default
 }
 
-src_configure() {	
-	cmake-utils_src_configure
+src_configure() {
+	cmake_src_configure
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 }

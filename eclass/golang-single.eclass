@@ -19,7 +19,7 @@
 # Typical ebuild using golang-single.eclass:
 #
 # @CODE
-# EAPI=5
+# EAPI=6
 #
 # GOLANG_PKG_IMPORTPATH="github.com/captObvious"
 # GOLANG_PKG_ARCHIVESUFFIX=".zip"

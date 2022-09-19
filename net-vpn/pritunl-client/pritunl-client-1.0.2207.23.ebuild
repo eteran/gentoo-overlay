@@ -1,7 +1,7 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=9
 
 inherit npm
 
@@ -370,7 +370,7 @@ SRC_URI="https://github.com/pritunl/pritunl-client-electron/archive/${PV}.tar.gz
 	https://registry.npmjs.org/yargs-parser/-/yargs-parser-13.1.2.tgz
 	https://registry.npmjs.org/yauzl/-/yauzl-2.10.0.tgz"
 
-	
+
 KEYWORDS="~amd64 ~x86"
 
 LICENSE="BSD"
@@ -378,20 +378,20 @@ SLOT="0"
 IUSE=""
 DEPEND="=net-vpn/pritunl-client-service-${PV}
 	>=net-libs/nodejs-0.8.10"
-	
+
 RDEPEND=""
 
 src_unpack() {
 
 	local a
-	
+
 	for a in ${A}; do
 		unpack ${a}
 	done
 
 	unpack pritunl-client-electron-${PV}.tar.gz
 	mv ${WORKDIR}/pritunl-client-electron-${PV} ${S}
-	
+
 	pushd ${S}/client
 	#npm install || die
 }
@@ -409,6 +409,6 @@ src_unpack() {
 #		/opt/Pritunl-linux-x64/chrome-sandbox \
 #		/opt/Pritunl-linux-x64/swiftshader/libGLESv2.so \
 #		/opt/Pritunl-linux-x64/swiftshader/libEGL.so
-#	
+#
 #	dosym "/opt/Pritunl-linux-x64/Pritunl" /opt/bin/Pritunl
 #}

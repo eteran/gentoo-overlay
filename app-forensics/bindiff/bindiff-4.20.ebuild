@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 
 inherit eutils versionator unpacker
 
@@ -52,17 +52,17 @@ src_install() {
 
 	chmod +x "${D}/opt/zynamics/BinDiff/bin/bindiff.sh"
 	chmod +x "${D}/opt/zynamics/BinDiff/bin/differ"
-	
+
 	insinto /usr
 	doins -r usr
-	
+
 	dodir /opt/bin
 	dosym /opt/zynamics/BinDiff/bin/bindiff.sh /opt/bin/bindiff
 	dosym /opt/zynamics/BinDiff/bin/differ /opt/bin/differ
-	
+
     # Setup install location in config file.
     sed -i 's/INSTALLDIR/\/opt\/zynamics\/BinDiff\//' \
-        ${D}/etc/opt/zynamics/BinDiff/bindiff.xml	
+        ${D}/etc/opt/zynamics/BinDiff/bindiff.xml
 }
 
 pkg_postinst() {
